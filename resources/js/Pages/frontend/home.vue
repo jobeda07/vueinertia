@@ -1,13 +1,16 @@
 <template lang="">
-    <Navbar/>
-    <div>
+    <FrontendLayout>
+    <Head title="Home"/>
         <h2>hlw liza</h2>
-    </div>
+    </FrontendLayout>
 </template>
 <script setup>
-import Navbar from '@Components/Navbar.vue';
+import FrontendLayout from '@/Layouts/FrontendLayout.vue';
+import {Head} from '@inertiajs/vue3';
+//import Navbar from '../../Components/Navbar.vue';
+
 
 </script>
 <style lang="">
-    
+
 </style>

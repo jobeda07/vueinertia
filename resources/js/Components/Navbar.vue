@@ -7,13 +7,13 @@
         <div class="">
             <ul class="flex gap-x-4 me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <Link :href="route(home)">Home</Link>
+                    <Link class="text-dark" :href="route('home')">Home</Link>
                 </li>
                 <li class="nav-item">
-                    <Link :href="route(about)">About</Link>
+                    <Link class="text-dark" :href="route('aboutus')">About</Link>
                 </li>
                 <li class="nav-item">
-                    <Link :href="route(contact)">Contact</Link>
+                    <Link class="text-dark" :href="route('contact')">Contact</Link>
                 </li>
             </ul>
         </div>
@@ -21,7 +21,7 @@
 </div>
 </template>
 
-<script>
+<script setup>
 import { Link} from '@inertiajs/vue3';
 
 // export default {

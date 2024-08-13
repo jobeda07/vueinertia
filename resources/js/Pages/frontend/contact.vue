@@ -1,15 +1,16 @@
 <template lang="">
-    <div>
+    <FrontendLayout>
+    <Head title="Contact"/>
         <h2>this is {{title}}</h2>
-    </div>
+    </FrontendLayout>
 </template>
-<script>
-export default {
-    props: {
-        title:String
-    }
-}
+<script setup>
+import FrontendLayout from '@/Layouts/FrontendLayout.vue';
+import {Head} from '@inertiajs/vue3';
+defineProps({
+    title:String
+});
 </script>
 <style lang="">
-    
+
 </style>
