@@ -5,11 +5,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/aboutus', [FrontendController::class, 'aboutus'])->name('aboutus');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
-
+Route::resource('products',ProductController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

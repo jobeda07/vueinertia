@@ -2,6 +2,8 @@
     <FrontendLayout>
     <Head title="About"/>
         <h2>this is {{title}}</h2>
+
+        
     </FrontendLayout>
 </template>
 <script setup>

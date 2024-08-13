@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <Link class="text-dark" :href="route('contact')">Contact</Link>
                 </li>
+                <li class="nav-item">
+                    <Link class="text-dark" :href="route('products.index')">Product</Link>
+                </li>
             </ul>
         </div>
     </nav>
