@@ -13,9 +13,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $products=Product::latest()->get();
         return Inertia::render('frontend/product/Index',[
-            'products'=>Product::latest()->get()
-        ]);
+            'products'=>$products
+           ]);
 
     }
 
@@ -24,6 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+
        return Inertia::render('frontend/product/Create');
     }
 
@@ -60,7 +62,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product=Product::find($id);
+        return Inertia::render('frontend/product/Edit',[
+            'item'=>$product
+        ]);
     }
 
     /**
@@ -68,7 +73,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:50'],
+            'price' => ['required', 'max:50'],
+        ]);
+        $product=Product::find($id);
+        $product->name =$request->name;
+        $product->price =$request->price;
+        $product->save();
+        return to_route('products.index')->with('message','Product Update SuccessFully');
     }
 
     /**
@@ -76,6 +89,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::find($id)->delete();
+        return back()->with('message','Product Delete SuccessFully');
     }
 }

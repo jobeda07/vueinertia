@@ -17,30 +17,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="odd:bg-white even:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                        <td class="border border-gray-300 px-4 py-2">Malcolm Lockyer</td>
-                        <td class="border border-gray-300 px-4 py-2">1961</td>
+                    <tr v-for="(item,index) in products " :key="index" class="odd:bg-white even:bg-gray-100">
+                        <td class="border border-gray-300 px-4 py-2">{{ index +1 }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ item.name }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ item.name }}</td>
                         <td class="border border-gray-300 px-4 py-2">
-                         <Link :href="route('products.create')" class="px-2 oy-1 text-sm bg-green-500 text-dark me-2 rounded inline-block">show</Link>
-                         <Link :href="route('products.create')" class="px-2 oy-1 text-sm bg-yellow-500 text-dark me-2 rounded inline-block">Edit</Link>
+                         <Link :href="route('products.show',item.id)" class="px-2 oy-1 text-sm bg-green-500 text-dark me-2 rounded inline-block">show</Link>
+                         <Link :href="route('products.edit',item.id)" class="px-2 oy-1 text-sm bg-yellow-500 text-dark me-2 rounded inline-block">Edit</Link>
                          <button type="submit" class="px-2 oy-1 text-sm bg-red-500 text-white me-2 rounded inline-block">Delete</button>
                         </td>
-                    </tr>
-                    <tr class="odd:bg-white even:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2">Witchy Woman</td>
-                        <td class="border border-gray-300 px-4 py-2">The Eagles</td>
-                        <td class="border border-gray-300 px-4 py-2">1972</td>
-                         <td class="border border-gray-300 px-4 py-2">
-                         <Link :href="route('products.create')" class="px-2 oy-1 text-sm bg-green-500 text-dark me-2 rounded inline-block">show</Link>
-                         <Link :href="route('products.create')" class="px-2 oy-1 text-sm bg-yellow-500 text-dark me-2 rounded inline-block">Edit</Link>
-                         <button type="submit" class="px-2 oy-1 text-sm bg-red-500 text-white me-2 rounded inline-block">Delete</button>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-white even:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2">Shining Star</td>
-                        <td class="border border-gray-300 px-4 py-2">Earth, Wind, and Fire</td>
-                        <td class="border border-gray-300 px-4 py-2">1975</td>
                     </tr>
                 </tbody>
             </table>
@@ -53,9 +38,9 @@
 <script setup>
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 import {Head ,Link} from '@inertiajs/vue3';
-// defineProps({
-//     title:String
-// });
+defineProps({
+    products:Array
+});
 </script>
 
 <style lang=""></style>
