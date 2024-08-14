@@ -50,9 +50,9 @@
 </FrontendLayout>
 </template>
 
-<script>
+<script setup>
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
-import {Head} from '@inertiajs/vue3';
+import {Head ,Link} from '@inertiajs/vue3';
 // defineProps({
 //     title:String
 // });

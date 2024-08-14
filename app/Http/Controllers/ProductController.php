@@ -32,7 +32,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Product::create($request->validate([
+        //     'name' => ['required', 'max:50'],
+        //     'price' => ['required', 'max:50'],
+        //   ]));
+        $request->validate([
+            'name' => ['required', 'max:50'],
+            'price' => ['required', 'max:50'],
+        ]);
+        Product::create([
+            'name' =>$request->name,
+            'price' =>$request->price,
+          ]);
+        return to_route('products.index')->with('message','Product Create SuccessFully');
     }
 
     /**
