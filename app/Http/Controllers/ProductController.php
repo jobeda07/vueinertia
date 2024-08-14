@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Product;
+use App\Traits\ImageUpload;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use ImageUpload;
     public function index()
     {
         $products=Product::latest()->get();
@@ -42,10 +41,15 @@ class ProductController extends Controller
             'name' => ['required', 'max:50'],
             'price' => ['required', 'max:50'],
         ]);
-        Product::create([
+        $product=Product::create([
             'name' =>$request->name,
             'price' =>$request->price,
           ]);
+        if ($request->file('image')) {
+            $filename = $this->imageUpload($request->image, 148, 177, 'uploads/Product/');
+            $product->image ='uploads/Product/'. $filename;
+            $product->save();
+        }
         return to_route('products.index')->with('message','Product Create SuccessFully');
     }
 
@@ -54,7 +58,15 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $productadd=Product::find($id);
+        $product=[
+           "name"=>$productadd->name,
+           "price"=>$productadd->price,
+           "image"=>$productadd->image? env('APP_URL') . '/' . $productadd->image : '',
+        ];
+        return Inertia::render('frontend/product/Show',[
+            'product'=>$product
+        ]);
     }
 
     /**
@@ -62,7 +74,13 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $product=Product::find($id);
+        $productadd=Product::find($id);
+        $product=[
+           "id"=>$productadd->id,
+           "name"=>$productadd->name,
+           "price"=>$productadd->price,
+           "image"=>$productadd->image? env('APP_URL') . '/' . $productadd->image : '',
+        ];
         return Inertia::render('frontend/product/Edit',[
             'item'=>$product
         ]);
@@ -73,13 +91,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'name' => ['required', 'max:50'],
-            'price' => ['required', 'max:50'],
-        ]);
+        // $request->validate([
+        //     'name' => ['required', 'max:50'],
+        //     'price' => ['required', 'max:50'],
+        // ]);
         $product=Product::find($id);
         $product->name =$request->name;
         $product->price =$request->price;
+        if ($request->file('image')) {
+            $this->deleteOne('uploads/Product/', $product->image);
+            $filename = $this->imageUpload($request->image, 148, 177, 'uploads/Product/');
+            $product->image ='uploads/Product/'. $filename;
+        }
         $product->save();
         return to_route('products.index')->with('message','Product Update SuccessFully');
     }
@@ -89,7 +112,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        Product::find($id)->delete();
+        $product=Product::find($id);
+        $product->delete();
         return back()->with('message','Product Delete SuccessFully');
     }
 }

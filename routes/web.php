@@ -11,7 +11,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/aboutus', [FrontendController::class, 'aboutus'])->name('aboutus');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::resource('products',ProductController::class);
-
+Route::post('/products/update/{id}', [ProductController::class, 'update'])->name('product.update');
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

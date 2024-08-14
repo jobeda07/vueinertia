@@ -13,6 +13,7 @@
                         <th class="border border-gray-300 px-4 py-2 text-left">Id</th>
                         <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
                         <th class="border border-gray-300 px-4 py-2 text-left">Price</th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">Image</th>
                         <th class="border border-gray-300 px-4 py-2 text-left">Action</th>
                     </tr>
                 </thead>
@@ -20,11 +21,15 @@
                     <tr v-for="(item,index) in products " :key="index" class="odd:bg-white even:bg-gray-100">
                         <td class="border border-gray-300 px-4 py-2">{{ index +1 }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ item.name }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ item.name }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ item.price }}</td>
+                        <td class="border border-gray-300 px-4 py-2">
+                          <img v-if="item.image" :src="item.image" alt="no" class="w-[100px] h-[80px] rounded">
+                          <span v-else>N/A</span>
+                        </td>
                         <td class="border border-gray-300 px-4 py-2">
                          <Link :href="route('products.show',item.id)" class="px-2 oy-1 text-sm bg-green-500 text-dark me-2 rounded inline-block">show</Link>
                          <Link :href="route('products.edit',item.id)" class="px-2 oy-1 text-sm bg-yellow-500 text-dark me-2 rounded inline-block">Edit</Link>
-                         <button type="submit" class="px-2 oy-1 text-sm bg-red-500 text-white me-2 rounded inline-block">Delete</button>
+                         <button type="submit" @click="productDelete(item.id)" class="px-2 oy-1 text-sm bg-red-500 text-white me-2 rounded inline-block">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -37,10 +42,19 @@
 
 <script setup>
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
-import {Head ,Link} from '@inertiajs/vue3';
+import {Head ,useForm,Link} from '@inertiajs/vue3';
 defineProps({
     products:Array
 });
+
+const from=useForm({
+
+});
+const productDelete = (productId)=>{
+    if(confirm('Are you Sure to delete?')){
+        from.delete(route('products.destroy',productId));
+    }
+};
 </script>
 
 <style lang=""></style>
