@@ -47,6 +47,8 @@
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 import {Head ,useForm,Link} from '@inertiajs/vue3';
 //import {Head ,useForm,Link,router} from '@inertiajs/vue3';
+
+
 defineProps({ errors: Object })
 const product=useForm({
    name:'',
@@ -62,6 +64,8 @@ const handleFileChange = (event) => {
 const saveProduct=()=>{
    const res=product.post(route('products.store'));
     if(res){
+     this.$toaster.success('Your toaster success message.');
+
        product.reset();
     }
 }

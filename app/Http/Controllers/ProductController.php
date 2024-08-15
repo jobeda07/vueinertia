@@ -51,6 +51,7 @@ class ProductController extends Controller
             $product->save();
         }
         return to_route('products.index')->with('message','Product Create SuccessFully');
+        //return to_route('products.index')->with('toast','Product Create SuccessFully');
     }
 
     /**

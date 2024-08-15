@@ -39,22 +39,43 @@
     </div>
 </FrontendLayout>
 </template>
-
 <script setup>
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 import {Head ,useForm,Link} from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
+
 defineProps({
     products:Array
 });
 
-const from=useForm({
+const form = useForm({});
 
-});
-const productDelete = (productId)=>{
-    if(confirm('Are you Sure to delete?')){
-        from.delete(route('products.destroy',productId));
-    }
+// Function to handle product deletion
+const productDelete = (productId) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.delete(route('products.destroy', productId));
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your product has been deleted.",
+                icon: "success"
+            });
+        }
+    });
 };
+// const productDelete = (productId)=>{
+//     if(confirm('Are you Sure to delete?')){
+//         from.delete(route('products.destroy',productId));
+//     }
+// };
 </script>
 
 <style lang=""></style>
